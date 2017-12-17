@@ -13,3 +13,9 @@
 
 //Bulma Vue modules
 @import "node_modules/buefy/src/scss/buefy";
+
+//Custom SASS pages - anytimme we want to overides something from bootstrap or bulma(frameworks) we place it inside this file
+//This accept normal things from the framework and overrides others
+@import "overrides";
+@import "helpers";// We use this file for class helpers(helper methods) , like margin helpers and so on
+@import "styles";//This is main styles file, and large projets we can devide it in admins styles, but here we keep all the style

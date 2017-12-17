@@ -19,5 +19,16 @@ Vue.use(Buefy);
  */
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue'));
+var app = new Vue({// here we create new Vue object, and html div id = app is property of that vue object and now we can use Buefy components
+    el: '#app',
+    data:{}
+});
 
+
+//This our Jquery for implement hovering over our dropdown button menu
+$(document).ready(function() {
+    $('button.dropdown').hover(function(e) {// Here we are targeting dropdown button class and add to it toggleClass when we hower on it// We targeing button element and add to it
+        $(this).toggleClass('is-open');// Since it is toogle, it will automaticaly toolge back closes dropdown when we hower off
+    });
+});
 
