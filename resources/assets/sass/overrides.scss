@@ -1,3 +1,21 @@
+/* ========================================
+   ============ Text Overrides ===========
+   ======================================== */
+.is-muted {
+  color: $grey-light !important;
+}
+
+a.is-muted:hover {
+  color: $grey !important; // Here we use bulma $grey variable as $gray light
+}
+
+
+
+   /* ========================================
+   ============ DropDown Override ===========
+   ======================================== */
+
+
 .dropdown {
     position: relative;
 
