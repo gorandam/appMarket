@@ -2,11 +2,11 @@
    ============ Text Overrides ===========
    ======================================== */
 .is-muted {
-  color: $grey-light !important;
+  color: $grey-light !important; // Here $gray-light is bulma variable
 }
 
 a.is-muted:hover {
-  color: $grey !important; // Here we use bulma $grey variable as $gray light
+  color: $grey !important; // Here we use bulma $grey variable as $gray-light before - this means if it is anker tag and it is mutted  class we than when we hower it it will change colour
 }
 
 
