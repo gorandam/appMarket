@@ -15,7 +15,7 @@
                         <a href="{{ route('register') }}" class="nav-item is-tab">Join the Community</a>
                     @else
                         <button class="dropdown is-aligned-right nav-item is-tab">
-                            Hey Alex <span class="icon"><i class="fa fa-caret-down"></i></span>
+                            Hey {{ auth()->user()->name }} <span class="icon"><i class="fa fa-caret-down"></i></span>
                             <ul class="dropdown-menu">
                                 <li><a href="#">
                                 <span class="icon"><i class="fa fa-fw m-r-10 fa-user-circle-o"></i></span>
@@ -23,13 +23,18 @@
                                 <li><a href="#">
                                 <span class="icon"><i class="fa fa-fw m-r-10 fa-bell"></i></span>
                                 Notifications</a></li>
-                                <li><a href="#">
+                                <li><a href="{{ route('manage.dashboard') }}">
                                 <span class="icon"><i class="fa fa-fw m-r-10 fa-cog"></i></span>
-                                Settings</a></li>
+                                Manage</a></li>
                                 <li class="separator"></li>
-                                <li><a href="#">
+                                <li><a href="{{ route('logout') }}"onclick=" event.preventDefault();
+                                 document.getElementById('logout-form').submit();">
                                 <span class="icon"><i class="fa fa-fw m-r-10 fa-sign-out"></i></span>
-                                Logout</a></li>
+                                Logout</a>
+                                 <form id="logout-form" action="{{ route('logout') }}" method="post" style="display: none;">
+                                    {{ csrf_field() }}
+                                </form>
+                                </li>
                             </ul>
                         </button>
 
