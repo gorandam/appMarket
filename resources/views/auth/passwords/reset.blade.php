@@ -60,7 +60,7 @@
                             </p>
                             {{-- Here we make dynamic error message to show when we have password errors --}}
                             @if ($errors->has('password_confirmation'))
-                                <p class="help is-danger">{{ $errors->first('password_confirmation') }}</p>
+                                <p class="help is-success">{{ $errors->first('password_confirmation') }}</p>
                             @endif
                         </div>
                     </div>
