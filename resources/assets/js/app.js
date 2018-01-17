@@ -8,7 +8,7 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
-import Buefy from 'buefy';
+import Buefy from 'buefy'
 
 Vue.use(Buefy);
 
@@ -19,10 +19,10 @@ Vue.use(Buefy);
  */
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue'));
-var app = new Vue({// here we create new Vue object, and html div id = app is property of that vue object and now we can use Buefy components
-    el: '#app',
-    data:{}
-});
+// var app = new Vue({// here we create new Vue object, and html div id = app is property of that vue object and now we can use Buefy components
+//     el: '#app',
+//     data:{}
+// });
 
 
 //This our Jquery for implement hovering over our dropdown button menu
