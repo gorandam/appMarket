@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -55,7 +56,7 @@ class UserController extends Controller
             for ($i = 0; $i < $lenght; ++$i) {
                 $str.= $keyspace[random_int(0, $max)];
             }
-            $password =  $str;
+            $password = $str;
         }
         $user = User::create([
             'name' => request('name'),
@@ -67,7 +68,7 @@ class UserController extends Controller
         if (isset($user)) {
             return redirect()->route('users.show', $user->id );
         } else {
-            session()->flash('danger', 'Sorry problem occured while creating this user');
+            session()->flash('danger', 'Sorry problem occured while creating this user.');
             return redirect()->route('users.create');
         }
     }
@@ -78,9 +79,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user) // Here we implement Route model binding
     {
-        //
+        return view('manage.users.show', compact('user'));
     }
 
     /**
@@ -89,9 +90,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        return view('manage.users.edit', compact('user'));
     }
 
     /**
@@ -101,9 +102,41 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(User $user)
     {
-        //
+        //Here we validate the request data
+        $this->validate(request(), [
+            'name' => 'required|max:255',
+            // 'email' => 'required|email|unique:users,email'.$id,
+            'email' => ['required', 'email', Rule::unique('users', 'email')->ignore($user->id)]
+        ]);
+
+        //Here we parsed request data and implement buissnes logic
+        //Here update user and we check to see if we autogenerate new password elsif we select 'manual'
+        $user->name = request('name');
+        $user->email = request('email');
+        if (request('password_options') == 'auto') {
+            //Set the manual password - Here we write the code to manually set password
+            $lenght = 10;
+            $keyspace = '123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ';
+            $str = '';
+            $max = mb_strlen($keyspace, '8bit')-1;
+            for ($i = 0; $i < $lenght; ++$i) {
+                $str.= $keyspace[random_int(0, $max)];
+            }
+            $user->password = bcrypt($str);
+            //Check to see if we select manual radio button
+        } elseif (request('password_options') == 'manual') {
+            $user->password = bcrypt(request('password'));
+        }
+
+        //Here we create response
+        if ($user->save()) {
+            return redirect()->route('users.show', $user->id);
+        } else {
+            session()->flash('error', 'There was a problem saving updated user info to the database. Try again later.');
+            return redirect()->route('users.edit', $user->id);
+        }
     }
 
     /**

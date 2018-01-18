@@ -44,7 +44,7 @@
                 </form>
             </div>
         </div>
-    </div> <!-- End of te flex-container -->
+    </div> <!-- End of the flex-container -->
 @endsection
 
 {{-- Here we write Vue.js code and bind auto_password and set it by defalut to be checked --}}
