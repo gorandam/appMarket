@@ -24,7 +24,8 @@ Route::prefix('manage')->middleware('role:superadministrator|administrator|edito
         'uses' => 'ManageController@dashboard',
         'as' => 'manage.dashboard',
      ]);
-    Route::resource('/users', 'UserController');
+    Route::resource('/users', 'UserController');// Here we create our resource Routes form UserController
+    Route::resource('/permissions', 'PermissionController', ['except' => 'destroy']);// Here we create resoure Routes for PermissionsController without destroy route and method
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
